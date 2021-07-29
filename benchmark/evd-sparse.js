@@ -4,10 +4,10 @@ const fs = require('fs');
 const path = require('path');
 
 const parse = require('csv-parse');
-const prettyHrtime = require('pretty-hrtime');
 const numeric = require('numeric');
+const prettyHrtime = require('pretty-hrtime');
 
-var { Matrix, EVD } = require('..');
+let { Matrix, EVD } = require('..');
 
 test('../data/9S.csv');
 test('../data/10S.csv');

@@ -1,18 +1,18 @@
 'use strict';
 
-var prettyHrtime = require('pretty-hrtime');
-var numeric = require('numeric');
+let numeric = require('numeric');
+let prettyHrtime = require('pretty-hrtime');
 
-var { Matrix, EVD } = require('..');
+let { Matrix, EVD } = require('..');
 
-var n = parseInt(process.argv[2], 10) || 3;
-var runs = parseInt(process.argv[3], 10) || 1;
+let n = parseInt(process.argv[2], 10) || 3;
+let runs = parseInt(process.argv[3], 10) || 1;
 console.log(`EVD benchmark for ${n}x${n} matrix (${runs} runs)`);
 
-var m = Matrix.rand(n, n);
+let m = Matrix.rand(n, n);
 
-var matrix = new Matrix(m.to2DArray());
-var matrixNum = m.to2DArray();
+let matrix = new Matrix(m.to2DArray());
+let matrixNum = m.to2DArray();
 
 run(function () {
   new EVD(matrix);

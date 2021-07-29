@@ -1,33 +1,33 @@
 'use strict';
 
-var Benchmark = require('benchmark');
-var numeric = require('numeric');
+let Benchmark = require('benchmark');
+let numeric = require('numeric');
 
-var { Matrix } = require('..');
+let { Matrix } = require('..');
 
-var x = parseInt(process.argv[2], 10) || 5;
-var y = parseInt(process.argv[3], 10) || x;
+let x = parseInt(process.argv[2], 10) || 5;
+let y = parseInt(process.argv[3], 10) || x;
 console.log(`Transpose benchmark for ${x}x${y} matrix`);
 
-var suite = new Benchmark.Suite();
+let suite = new Benchmark.Suite();
 
-var m = Matrix.rand(x, y);
+let m = Matrix.rand(x, y);
 
-var matrix = new Matrix(m.to2DArray());
-var matrixNum = m.to2DArray();
+let matrix = new Matrix(m.to2DArray());
+let matrixNum = m.to2DArray();
 
-function transpose(m) {
-  var r = m.length;
-  var c = m[0].length;
-  var i = 0;
-  var j;
-  var result = new Array(c);
+function transpose(mat) {
+  let r = mat.length;
+  let c = mat[0].length;
+  let i = 0;
+  let j;
+  let result = new Array(c);
   for (; i < c; i++) {
     result[i] = new Array(r);
   }
   for (i = 0; i < c; i++) {
     for (j = 0; j < r; j++) {
-      result[i][j] = m[j][i];
+      result[i][j] = mat[j][i];
     }
   }
   return result;

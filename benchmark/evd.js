@@ -1,19 +1,19 @@
 'use strict';
 
-var Benchmark = require('benchmark');
-var numeric = require('numeric');
+let Benchmark = require('benchmark');
+let numeric = require('numeric');
 
-var { Matrix, EVD } = require('..');
+let { Matrix, EVD } = require('..');
 
-var n = parseInt(process.argv[2], 10) || 3;
+let n = parseInt(process.argv[2], 10) || 3;
 console.log(`EVD benchmark for ${n}x${n} matrix`);
 
-var suite = new Benchmark.Suite();
+let suite = new Benchmark.Suite();
 
-var m = Matrix.rand(n, n);
+let m = Matrix.rand(n, n);
 
-var matrix = new Matrix(m.to2DArray());
-var matrixNum = m.to2DArray();
+let matrix = new Matrix(m.to2DArray());
+let matrixNum = m.to2DArray();
 
 suite
   .add('Matrix', function () {

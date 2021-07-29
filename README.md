@@ -1,22 +1,33 @@
 # ml-matrix
 
-[![NPM version][npm-image]][npm-url]
-[![build status][travis-image]][travis-url]
-[![Test coverage][codecov-image]][codecov-url]
-[![npm download][download-image]][download-url]
-
 Matrix manipulation and computation library.
+
+<h3 align="center">
+
+  <a href="https://www.zakodium.com">
+    <img src="https://www.zakodium.com/brand/zakodium-logo-white.svg" width="50" alt="Zakodium logo" />
+  </a>
+
+  <p>
+    Maintained by <a href="https://www.zakodium.com">Zakodium</a>
+  </p>
+
+  [![NPM version][npm-image]][npm-url]
+  [![build status][ci-image]][ci-url]
+  [![npm download][download-image]][download-url]
+
+</h3>
 
 ## Installation
 
-`$ npm install --save ml-matrix`
+`$ npm install ml-matrix`
 
 ## Usage
 
 ### As an ES module
 
 ```js
-import Matrix from 'ml-matrix';
+import { Matrix } from 'ml-matrix';
 
 const matrix = Matrix.ones(5, 5);
 ```
@@ -29,7 +40,7 @@ const { Matrix } = require('ml-matrix');
 const matrix = Matrix.ones(5, 5);
 ```
 
-## [API Documentation](https://mljs.github.io/matrix/)
+## [API Documentation](https://mljs.github.io/matrix/globals.html)
 
 ## Examples
 
@@ -48,7 +59,7 @@ var C = new Matrix([[3, 3], [1, 1]]);
 
 // operations :
 const addition = Matrix.add(A, B); // addition = Matrix [[4, 4], [3, 3], rows: 2, columns: 2]
-const substraction = Matrix.sub(A, B); // substraction = Matrix [[-2, -2], [1, 1], rows: 2, columns: 2]
+const subtraction = Matrix.sub(A, B); // subtraction = Matrix [[-2, -2], [1, 1], rows: 2, columns: 2]
 const multiplication = A.mmul(B); // multiplication = Matrix [[4, 4], [8, 8], rows: 2, columns: 2]
 const mulByNumber = Matrix.mul(A, 10); // mulByNumber = Matrix [[10, 10], [20, 20], rows: 2, columns: 2]
 const divByNumber = Matrix.div(A, 10); // divByNumber = Matrix [[0.1, 0.1], [0.2, 0.2], rows: 2, columns: 2]
@@ -89,10 +100,10 @@ var diag = A.diag(); // diag = [1, -1], i.e values in the diagonal.
 var m = A.mean(); // m = 2.75
 var product = A.prod(); // product = -10, i.e product of all values of the matrix
 var norm = A.norm(); // norm = 10.14889156509222, i.e Frobenius norm of the matrix
-var transpose = A.transpose(); // tranpose = Matrix [[1, 10], [1, -1], rows: 2, columns: 2]
+var transpose = A.transpose(); // transpose = Matrix [[1, 10], [1, -1], rows: 2, columns: 2]
 
 // ============================
-// Instanciation of matrix :
+// Instantiation of matrix :
 // =============================
 
 var z = Matrix.zeros(3, 2); // z = Matrix [[0, 0], [0, 0], [0, 0], rows: 3, columns: 2]
@@ -100,7 +111,7 @@ var z = Matrix.ones(2, 3); // z = Matrix [[1, 1, 1], [1, 1, 1], rows: 2, columns
 var z = Matrix.eye(3, 4); // Matrix [[1, 0, 0, 0], [0, 1, 0, 0], [0, 0, 1, 0], rows: 3, columns: 4]. there are 1 only in the diagonal
 ```
 
-### Maths :
+### Maths
 
 ```js
 const {
@@ -110,7 +121,8 @@ const {
   linearDependencies,
   QrDecomposition,
   LuDecomposition,
-  CholeskyDecomposition
+  CholeskyDecomposition,
+  EigenvalueDecomposition
 } = require('ml-matrix');
 
 //===========================
@@ -157,7 +169,7 @@ var error = Matrix.sub(b, A.mmul(x)); // The error enables to evaluate the solut
 // QR Decomposition
 
 var A = new Matrix([[2, 3, 5], [4, 1, 6], [1, 3, 0]]);
-var QR = QrDecomposition(A);
+var QR = new QrDecomposition(A);
 var Q = QR.orthogonalMatrix;
 var R = QR.upperTriangularMatrix;
 // So you have the QR decomposition. If you multiply Q by R, you'll see that A = Q.R, with Q orthogonal and R upper triangular
@@ -165,7 +177,7 @@ var R = QR.upperTriangularMatrix;
 // LU Decomposition
 
 var A = new Matrix([[2, 3, 5], [4, 1, 6], [1, 3, 0]]);
-var LU = LuDecomposition(A);
+var LU = new LuDecomposition(A);
 var L = LU.lowerTriangularMatrix;
 var U = LU.upperTriangularMatrix;
 var P = LU.pivotPermutationVector;
@@ -174,13 +186,13 @@ var P = LU.pivotPermutationVector;
 // Cholesky Decomposition
 
 var A = new Matrix([[2, 3, 5], [4, 1, 6], [1, 3, 0]]);
-var cholesky = CholeskyDecomposition(A);
+var cholesky = new CholeskyDecomposition(A);
 var L = cholesky.lowerTriangularMatrix;
 
 // Eigenvalues & eigenvectors
 
 var A = new Matrix([[2, 3, 5], [4, 1, 6], [1, 3, 0]]);
-var e = EigenvalueDecomposition(A);
+var e = new EigenvalueDecomposition(A);
 var real = e.realEigenvalues;
 var imaginary = e.imaginaryEigenvalues;
 var vectors = e.eigenvectorMatrix;
@@ -195,7 +207,7 @@ var A = new Matrix([
   [0, 1, 6, 0],
   [0, 3, 0, 1],
   [0, 0, 1, 0],
-  [0, 1, 2, 0]
+  [0, 1, 2, 0],
 ]);
 var dependencies = linearDependencies(A); // dependencies is a matrix with the dependencies of the rows. When we look row by row, we see that the first row is [0, 0, 0, 0, 0], so it means that the first row is independent, and the second row is [ 0, 0, 0, 4, 1 ], i.e the second row = 4 times the 4th row + the 5th row.
 ```
@@ -204,11 +216,9 @@ var dependencies = linearDependencies(A); // dependencies is a matrix with the d
 
 [MIT](./LICENSE)
 
-[npm-image]: https://img.shields.io/npm/v/ml-matrix.svg?style=flat-square
+[npm-image]: https://img.shields.io/npm/v/ml-matrix.svg
 [npm-url]: https://npmjs.org/package/ml-matrix
-[travis-image]: https://img.shields.io/travis/mljs/matrix/master.svg?style=flat-square
-[travis-url]: https://travis-ci.org/mljs/matrix
-[codecov-image]: https://img.shields.io/codecov/c/github/mljs/matrix.svg?style=flat-square
-[codecov-url]: https://codecov.io/github/mljs/matrix
-[download-image]: https://img.shields.io/npm/dm/ml-matrix.svg?style=flat-square
+[ci-image]: https://github.com/mljs/matrix/workflows/Node.js%20CI/badge.svg?branch=master
+[ci-url]: https://github.com/mljs/matrix/actions?query=workflow%3A%22Node.js+CI%22
+[download-image]: https://img.shields.io/npm/dm/ml-matrix.svg
 [download-url]: https://npmjs.org/package/ml-matrix
